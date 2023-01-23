@@ -10,11 +10,6 @@ const getDepartmentByID = (id) => {
     return Department.find({ID : id});
 }
 
-// GET - get department by name
-const getDepartmentByName = (name) => {
-    return Department.find({name : name});
-}
-
 // POST - add a new department
 const addDepartment = async (obj) => {
     const department = new Department(obj);
@@ -38,7 +33,6 @@ const deleteDepartment = async (id) => {
 module.exports = {
     getAllDepartments,
     getDepartmentByID,
-    getDepartmentByName,
     addDepartment,
     updateDepartment,
     deleteDepartment
