@@ -13,11 +13,11 @@ const getAllEmployees = () => {
         // create an array for the employeeShifts
         const shiftsArr = [];
         // get all the employeeShifts for a given employee
-        const employeeShiftsArr = EmployeeShift.find({employeeID : employee.ID});
+        const employeeShiftsArr = EmployeeShift.findById(employee._id);
 
         // for each employeeShift find his corresponding shift and push it into the shiftArr
         employeeShiftsArr.forEach(employeeShift => {
-            shiftsArr.push(Shift.find({ID: employeeShift.shiftID}));
+            shiftsArr.push(Shift.findById(employeeShift.shiftID));
         })
         // push each employee and his shift array
         data.push({
@@ -30,7 +30,7 @@ const getAllEmployees = () => {
 
 // GET - get employee by id
 const getEmployeeByID = (id) => {
-    return Employee.find({ID : id});
+    return Employee.findById(id);
 }
 
 // GET - search employee by firstName, lastName or department
@@ -45,14 +45,14 @@ const searchEmployee = (text) => {
 
 // PUT - update a new employee
 const updateEmployee = async (id, obj) => {
-    await Employee.findOneAndUpdate({ID : id}, obj);
+    await Employee.findByIdAndUpdate(id, obj);
     return "Employee updated successfully";
 }
 
 // DELETE - delete an existing employee
 const deleteEmployee = async (id) => {
     // delete the employee
-    await Employee.findOneAndDelete({ID : id});
+    await Employee.findByIdAndDelete(id);
     // delete his shifts
     await EmployeeShift.deleteMany({employeeID : id});
     return "Employee deleted successfully";

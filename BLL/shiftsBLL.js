@@ -12,11 +12,11 @@ const getAllShifts = () => {
         // create an array for the employees
         const employeesArr = [];
         // get all the employeeShifts for a given shift
-        const employeeShiftsArr = EmployeeShift.find({ID: shift.ID});
+        const employeeShiftsArr = EmployeeShift.findById(shift._id);
 
         // for each employeeShift find his corresponding employee and push them into the employeeArr
         employeeShiftsArr.forEach(employeeShift => {
-            employeeArr.push(Employee.find({ID : employeeShift.employeeID}));
+            employeeArr.push(Employee.findById(employeeShift.employeeID));
         })
         // push each employee and his shift array
         data.push({
@@ -29,7 +29,7 @@ const getAllShifts = () => {
 
 // GET - get shift by id
 const getShiftByID = (id) => {
-    return Shift.find({ID : id});
+    return Shift.findById(id);
 }
 
 // POST - add a new shift

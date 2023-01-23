@@ -7,7 +7,7 @@ const getAllDepartments = () => {
 
 // GET - get department by id
 const getDepartmentByID = (id) => {
-    return Department.find({ID : id});
+    return Department.findById(id);
 }
 
 // POST - add a new department
@@ -19,13 +19,13 @@ const addDepartment = async (obj) => {
 
 // PUT - update a new department
 const updateDepartment = async (id, obj) => {
-    await Department.findOneAndUpdate({ID : id}, obj);
+    await Department.findByIdAndUpdate(id, obj);
     return "Department updated successfully";
 }
 
 // DELETE - delete an existing department
 const deleteDepartment = async (id) => {
-    await Department.findOneAndDelete({ID : id});
+    await Department.findByIdAndDelete(id);
     return "Department deleted successfully";
 }
 
