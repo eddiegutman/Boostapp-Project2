@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const employeeShiftSchema = new mongoose.Schema({
-    ID: Number,
     employeeID: Number,
     shiftID: Number
 });
