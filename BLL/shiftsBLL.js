@@ -1,6 +1,6 @@
 const Shift = require("../Models/shiftModel");
-const employeeShiftsBLL = require("../BLL/employeeShiftsBLL");
-const employeesBLL = require("../BLL/employeesBLL");
+const EmployeeShift = require("../Models/employeeShiftModel");
+const Employee = require("../Models/employeeModel");
 
 // GET - get all shifts with the employees working in it
 const getAllShifts = () => {
@@ -12,11 +12,11 @@ const getAllShifts = () => {
         // create an array for the employees
         const employeesArr = [];
         // get all the employeeShifts for a given shift
-        const employeeShiftsArr = employeeShiftsBLL.getEmployeeShiftsByShiftID(shift.ID);
+        const employeeShiftsArr = EmployeeShift.find({ID: shift.ID});
 
         // for each employeeShift find his corresponding employee and push them into the employeeArr
         employeeShiftsArr.forEach(employeeShift => {
-            employeeArr.push(employeesBLL.getEmployeeByID(employeeShift.employeeID));
+            employeeArr.push(Employee.find({ID : employeeShift.employeeID}));
         })
         // push each employee and his shift array
         data.push({
