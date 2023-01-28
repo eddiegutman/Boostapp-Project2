@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const employeeShiftSchema = new mongoose.Schema({
-    employeeID: Number,
-    shiftID: Number
+    employeeID: String,
+    shiftID: String
 });
 
 const EmployeeShift = mongoose.model("employeeShifts", employeeShiftSchema);
