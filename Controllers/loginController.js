@@ -6,7 +6,7 @@ const usersBLL = require("../BLL/usersBLL");
 // router creation
 const router = express.Router();
 
-// Login
+// POST - Login
 router.post("/", async (request, response) => {
     try {
         // get the user login details
