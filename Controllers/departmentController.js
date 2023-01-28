@@ -1,13 +1,13 @@
 // imports
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const departmentsBLL = require("../BLL/departmentsBLL");
+const utils = require("../utils");
 
 // router creation
 const router = express.Router();
 
 // GET - get all departments
-router.get("/", verifyToken, async (request, response) => {
+router.get("/", utils.verifyToken, async (request, response) => {
     try {
         // get the departments from the database and respond
         const departments = await departmentsBLL.getAllDepartments();
@@ -18,7 +18,7 @@ router.get("/", verifyToken, async (request, response) => {
 });
 
 // GET - get department by id
-router.get("/:id", verifyToken, async (request, response) => {
+router.get("/:id", utils.verifyToken, async (request, response) => {
     try {
         // get the id from the request
         const { id } = request.params;
@@ -31,7 +31,7 @@ router.get("/:id", verifyToken, async (request, response) => {
 });
 
 // POST - Add a new department
-router.post("/", verifyToken, async (request, response) => {
+router.post("/", utils.verifyToken, async (request, response) => {
     try {
         // get the new department from the request
         const obj = request.body;
@@ -44,7 +44,7 @@ router.post("/", verifyToken, async (request, response) => {
 });
 
 // PUT - update existing department
-router.put("/:id", verifyToken, async (request, response) => {
+router.put("/:id", utils.verifyToken, async (request, response) => {
     try {
         // get the id and the updated data from the request
         const { id } = request.params;
@@ -59,7 +59,7 @@ router.put("/:id", verifyToken, async (request, response) => {
 });
 
 // DELETE - delete a departments
-router.delete("/:id", verifyToken, async (request, response) => {
+router.delete("/:id", utils.verifyToken, async (request, response) => {
     try {
         // get the id from the request
         const { id } = request.params;
@@ -71,24 +71,5 @@ router.delete("/:id", verifyToken, async (request, response) => {
         return response.status(500).json(error);
     }
 });
-
-// verify token function
-function verifyToken(request, response, next) {
-    // get the private key and the token
-    const RSA_PRIVATE_KEY = "BoostApp";
-    const token = request.headers["x-access-token"];
-
-    // check if token exists
-    if (!token) {
-        return response.status(401).json({ authentication: false, message: "No Token Provided" });
-    }
-
-    // verify the token
-    jwt.verify(token, RSA_PRIVATE_KEY, (error, decodedToken) => {
-        if (error) response.status(403);
-        request.headers["isValid"] = decodedToken;
-        next();
-    })
-}
 
 module.exports = router;
