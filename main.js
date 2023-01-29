@@ -16,11 +16,11 @@ const port = 8000;
 // connect to the database
 connectDB();
 
-// add server settings
+// server settings
 app.use(express.json());
 app.use(cors());
 
-// add server routing
+// server routing
 app.use("/login", loginController);
 app.use("/departments", departmentController);
 app.use("/employees", employeeController);
