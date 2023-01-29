@@ -18,7 +18,7 @@ const getAllShifts = async () => {
 
         // for each employeeShift find his corresponding employee and push them into the employeeArr
         for (let employeeShift of employeeShiftsArr) {
-            employeeArr.push(await Employee.findById(employeeShift.employeeID));
+            employeesArr.push(await Employee.findById(employeeShift.employeeID));
         }
         // push each employee and his shift array
         data.push({
