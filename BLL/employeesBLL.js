@@ -4,27 +4,26 @@ const EmployeeShift = require("../Models/employeeShiftModel");
 const Department = require("../Models/departmentModel");
 
 // GET - get all employees with their shifts details
-const getAllEmployees = () => {
-    // create an array for objects of {employee , shifts}
+const getAllEmployees = async () => {
+    // create an array for objects of {employee , [shifts]}
     const data = [];
-
-    // get all the employees and for each of them find their shifts
-    Employee.find({}).forEach(employee => {
-        // create an array for the employeeShifts
+    //get all the employees and for each of them find their shifts
+    const employees = await Employee.find({});
+    for (let employee of employees) {
+        // create an array for the shifts
         const shiftsArr = [];
-        // get all the employeeShifts for a given employee
-        const employeeShiftsArr = EmployeeShift.findById(employee._id);
-
+        // get all the employeeShifts for a given employee        
+        const employeeShiftsArr = await EmployeeShift.find({ employeeID : employee._id });
         // for each employeeShift find his corresponding shift and push it into the shiftArr
-        employeeShiftsArr.forEach(employeeShift => {
-            shiftsArr.push(Shift.findById(employeeShift.shiftID));
-        })
+        for (let employeeShift of employeeShiftsArr) {
+            shiftsArr.push(await Shift.findById(employeeShift.shiftID));
+        }
         // push each employee and his shift array
         data.push({
             employee: employee,
             shifts: shiftsArr
         })
-    });
+    };
     return data;
 }
 
@@ -34,12 +33,12 @@ const getEmployeeByID = (id) => {
 }
 
 // GET - search employee by firstName, lastName or department
-const searchEmployee = (text) => {
-    const department = Department.find({name: text})[0];
-    if (department) {
-        return Employee.find({ $or: [ { firstName: text }, { lastName : text }, {departmentID : department.ID} ] });
+const searchEmployee = async (text) => {
+    const department = await Department.find({ name: text });
+    if (department[0]) {
+        return Employee.find({ $or: [{ firstName: text }, { lastName: text }, { departmentID: department[0]._id }] });
     } else {
-        return Employee.find({ $or: [ { firstName: text }, { lastName : text } ] });
+        return Employee.find({ $or: [{ firstName: text }, { lastName: text }] });
     }
 }
 
@@ -54,7 +53,7 @@ const deleteEmployee = async (id) => {
     // delete the employee
     await Employee.findByIdAndDelete(id);
     // delete his shifts
-    await EmployeeShift.deleteMany({employeeID : id});
+    await EmployeeShift.deleteMany({ employeeID: id });
     return "Employee deleted successfully";
 }
 
