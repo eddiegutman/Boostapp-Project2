@@ -52,7 +52,6 @@ router.put("/:id", utils.verifyToken, async (request, response) => {
         // update it in the database
         const status = await departmentsBLL.updateDepartment(id, obj)
         response.status(200).json(status);
-
     } catch (error) {
         return response.status(500).json(error);
     }
@@ -66,7 +65,6 @@ router.delete("/:id", utils.verifyToken, async (request, response) => {
         // delete it from the database
         const status = await departmentsBLL.deleteDepartment(id);
         response.status(200).json(status);
-
     } catch (error) {
         return response.status(500).json(error);
     }
