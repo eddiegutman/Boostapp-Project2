@@ -5,6 +5,7 @@ const connectDB = require("./Config/database");
 // import controllers
 const loginController = require("./Controllers/loginController");
 const departmentController = require("./Controllers/departmentController");
+const employeeController = require("./Controllers/employeeController");
 
 // create the server
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 // add server routing
 app.use("/login", loginController);
 app.use("/departments", departmentController);
+app.use("/employees", employeeController);
 
 // run the server
 app.listen(port, ()=> {
