@@ -1,5 +1,6 @@
 // import libraries 
 const express = require("express");
+const cors = require("cors");
 const connectDB = require("./Config/database");
 
 // import controllers
@@ -17,6 +18,7 @@ connectDB();
 
 // add server settings
 app.use(express.json());
+app.use(cors());
 
 // add server routing
 app.use("/login", loginController);
