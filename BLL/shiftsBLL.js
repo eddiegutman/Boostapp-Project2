@@ -1,29 +1,31 @@
 const Shift = require("../Models/shiftModel");
 const EmployeeShift = require("../Models/employeeShiftModel");
 const Employee = require("../Models/employeeModel");
+const e = require("express");
 
 // GET - get all shifts with the employees working in it
-const getAllShifts = () => {
-    // create an array for objects of {shift , employees}
+const getAllShifts = async () => {
+    // create an array for objects of {shift , [employees]}
     const data = [];
 
     // get all the shifts and for each of them find their employees
-    Shift.find({}).forEach(shift => {
+    const shifts = await Shift.find({});
+    for (let shift of shifts) {
         // create an array for the employees
         const employeesArr = [];
         // get all the employeeShifts for a given shift
-        const employeeShiftsArr = EmployeeShift.findById(shift._id);
+        const employeeShiftsArr = await EmployeeShift.find({ shiftID : shift._id });
 
         // for each employeeShift find his corresponding employee and push them into the employeeArr
-        employeeShiftsArr.forEach(employeeShift => {
-            employeeArr.push(Employee.findById(employeeShift.employeeID));
-        })
+        for (let employeeShift of employeeShiftsArr) {
+            employeeArr.push(await Employee.findById(employeeShift.employeeID));
+        }
         // push each employee and his shift array
         data.push({
             shift: shift,
             employees: employeesArr
         })
-    });
+    }
     return data;
 }
 
