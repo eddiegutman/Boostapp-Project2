@@ -6,6 +6,7 @@ const connectDB = require("./Config/database");
 const loginController = require("./Controllers/loginController");
 const departmentController = require("./Controllers/departmentController");
 const employeeController = require("./Controllers/employeeController");
+const shiftController = require("./Controllers/shiftController");
 
 // create the server
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/login", loginController);
 app.use("/departments", departmentController);
 app.use("/employees", employeeController);
+app.use("/shifts", shiftController);
 
 // run the server
 app.listen(port, ()=> {
