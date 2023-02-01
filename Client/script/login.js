@@ -16,3 +16,6 @@ const login = async () => {
         window.location.href = "../html/homepage.html";
     }
 }
+
+const loginButton = document.getElementById("loginButton");
+loginButton.addEventListener("click", login);
