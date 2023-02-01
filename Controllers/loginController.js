@@ -22,11 +22,11 @@ router.post("/", async (request, response) => {
             const token = jwt.sign({ id: userID }, RSA_PRIVATE_KEY);
 
             // return the token to the user with a status
-            response.status(200).json({ token });
+            return response.status(200).json({ token });
         }
 
         // if user not found return bad request status
-        response.status(400);
+        return response.status(400).json("Wrong username or password");
     } catch (error) {
         return response.status(500).json(error);
     }
