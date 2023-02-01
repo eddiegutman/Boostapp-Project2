@@ -9,15 +9,15 @@ const login = async () => {
     };
 
     const response = await fetch("http:/localhost:8000/login", fetchParams);
+    console.log("lol")
 
     if (response.status == 200) {
         const token = await response.json();
         sessionStorage["x-access-token"] = token;
         window.location.href = "../html/homepage.html";
     } else {
-        alert("Wrong username or password");
+        alert(await response.json());
     }
-
 }
 
 const loginButton = document.getElementById("loginButton");
