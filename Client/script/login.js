@@ -9,7 +9,6 @@ const login = async () => {
     };
 
     const response = await fetch("http:/localhost:8000/login", fetchParams);
-    console.log("lol")
 
     if (response.status == 200) {
         const {token, name} = await response.json();
