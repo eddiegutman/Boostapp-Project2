@@ -12,8 +12,9 @@ const login = async () => {
     console.log("lol")
 
     if (response.status == 200) {
-        const token = await response.json();
+        const {token, name} = await response.json();
         sessionStorage["x-access-token"] = token;
+        sessionStorage["name"] = name;
         window.location.href = "../html/homepage.html";
     } else {
         alert(await response.json());
