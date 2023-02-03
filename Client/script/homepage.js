@@ -1,4 +1,4 @@
-// homepage loading function
+// registered user detection function
 const load = () => {
     // get the token from session storage
     const token = sessionStorage.getItem("x-access-token");
