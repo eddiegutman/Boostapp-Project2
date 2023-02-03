@@ -28,3 +28,16 @@ const navBar = () => {
     // add both spans to the main nav bar
     nav.append(spanName, spanLink, spanButton);
 }
+
+// registered user detection function
+const isRegistered = () => {
+    // get the token from session storage
+    const token = sessionStorage.getItem("x-access-token");
+    // check if token exists and show content accordingly
+    if (token) {
+        document.getElementById("noLogin").remove();
+        load();
+    } else {
+        document.getElementById("mainDiv").remove();
+    }
+}

@@ -1,18 +1,5 @@
-// registered user detection function
-const load = async () => {
-    // get the token from session storage
-    const token = sessionStorage.getItem("x-access-token");
-    // check if token exists and show content accordingly
-    if (token) {
-        document.getElementById("noLogin").remove();
-        loadData();
-    } else {
-        document.getElementById("mainDiv").remove();
-    }
-}
-
 // departments page loading function
-const loadData = async () => {
+const load = async () => {
     // get the main table element
     const table = document.getElementById("tableContent");
 
@@ -103,6 +90,6 @@ buttonAdd.addEventListener("click", () => {
 
 // add the load and nav bar functions to the body element as an onload event
 document.body.onload = function() {
-    load();
+    isRegistered();
     navBar();
 };

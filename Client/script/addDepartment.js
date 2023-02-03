@@ -1,18 +1,5 @@
-// registered user detection function
-const load = async () => {
-    // get the token from session storage
-    const token = sessionStorage.getItem("x-access-token");
-    // check if token exists and show content accordingly
-    if (token) {
-        document.getElementById("noLogin").remove();
-        loadData();
-    } else {
-        document.getElementById("mainDiv").remove();
-    }
-}
-
 // add department page loading function
-const loadData = async () => {
+const load = async () => {
     // create the request
      const fetchParams = {
         method: "GET",
@@ -67,6 +54,6 @@ buttonAdd.addEventListener("click", add);
 
 // add the load and nav bar functions to the body element as an onload event
 document.body.onload = async function() {
-    await load();
+    await isRegistered();
     await navBar();
 };
