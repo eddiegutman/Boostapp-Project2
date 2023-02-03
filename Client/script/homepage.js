@@ -11,5 +11,7 @@ const load = () => {
 }
 
 // add the load and nav bar functions to the body element as an onload event
-const body = document.getElementById("body");
-body.addEventListener("load", load(), navBar());
+document.body.onload = function() {
+    load();
+    navBar();
+};
