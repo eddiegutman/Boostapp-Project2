@@ -8,6 +8,7 @@ const loginController = require("./Controllers/loginController");
 const departmentController = require("./Controllers/departmentController");
 const employeeController = require("./Controllers/employeeController");
 const shiftController = require("./Controllers/shiftController");
+const employeeShiftController = require("./Controllers/employeeShiftController");
 
 // create the server
 const app = express();
@@ -25,6 +26,8 @@ app.use("/login", loginController);
 app.use("/departments", departmentController);
 app.use("/employees", employeeController);
 app.use("/shifts", shiftController);
+app.use("/employeeShifts", employeeShiftController);
+
 
 // run the server
 app.listen(port, ()=> {
