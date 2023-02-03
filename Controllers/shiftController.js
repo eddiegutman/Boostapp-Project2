@@ -17,7 +17,7 @@ router.get("/", utils.verifyToken, async (request, response) => {
     }
 });
 
-// GET - get all shifts
+// GET - get all shifts with an arrays of working employees in them
 router.get("/employees/all", utils.verifyToken, async (request, response) => {
     try {
         // get the shifts from the database and respond

@@ -17,7 +17,7 @@ router.get("/", utils.verifyToken, async (request, response) => {
     }
 });
 
-// GET - get all employees and a list of their shifts
+// GET - get all employees and an arrays of their shifts
 router.get("/shifts/all", utils.verifyToken, async (request, response) => {
     try {
         // get the employees + shifts from the database and respond
@@ -28,7 +28,7 @@ router.get("/shifts/all", utils.verifyToken, async (request, response) => {
     }
 });
 
-// GET - get an employee  by id
+// GET - get an employee by id
 router.get("/:id", utils.verifyToken, async (request, response) => {
     try {
         // get the id from the request
