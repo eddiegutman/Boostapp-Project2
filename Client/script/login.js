@@ -17,8 +17,8 @@ const login = async () => {
     // if response is ok save the user's token and name and move t the homepage
     if (response.status == 200) {
         const { token, name } = await response.json();
-        sessionStorage["x-access-token"] = token;
-        sessionStorage["name"] = name;
+        sessionStorage.setItem("x-access-token", token);
+        sessionStorage.setItem("name", name);
         window.location.href = "../html/homepage.html";
     } else {
         // else show alert
