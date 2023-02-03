@@ -30,6 +30,19 @@ router.get("/:id", utils.verifyToken, async (request, response) => {
     }
 });
 
+// GET - get departments size
+router.get("/size/all", utils.verifyToken, async (request, response) => {
+    try {
+        // use the id to get the desired department from the database and respond
+        const data = await departmentsBLL.getDepartmentsSize();
+        response.status(200).json(data);
+    } catch (error) {
+        return response.status(500).json(error);
+    }
+});
+
+
+
 // POST - Add a new department
 router.post("/", utils.verifyToken, async (request, response) => {
     try {
@@ -50,7 +63,7 @@ router.put("/:id", utils.verifyToken, async (request, response) => {
         const { id } = request.params;
         const obj = request.body;
         // update it in the database
-        const status = await departmentsBLL.updateDepartment(id, obj)
+        const status = await departmentsBLL.updateDepartment(id, obj);
         response.status(200).json(status);
     } catch (error) {
         return response.status(500).json(error);
