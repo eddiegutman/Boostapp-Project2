@@ -49,6 +49,7 @@ const loadData = async () => {
         // edit button creation
         buttonEdit.textContent = "Edit";
         buttonEdit.addEventListener("click", () => {
+            // save department id for edit use
             sessionStorage.setItem("departmentID", department._id)
             window.location.href = "../html/editDepartment.html";
         });
