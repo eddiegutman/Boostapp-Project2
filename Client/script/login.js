@@ -16,10 +16,45 @@ const login = async () => {
 
     // if response is ok save the user's token and name and move to the homepage
     if (response.status == 200) {
-        const { token, name } = await response.json();
+        const { token, name, limit } = await response.json();
         sessionStorage.setItem("x-access-token", token);
         sessionStorage.setItem("name", name);
-        window.location.href = "../html/homepage.html";
+
+        // use to reset actions remaining actions for testing
+        //localStorage.clear();
+        //localStorage.setItem("remainingActions", 10);
+
+        // get the last login date
+        const lastLogin = localStorage.getItem("lastLogin");
+        // if user ever logged in
+        if (lastLogin) {
+            // get current date
+            const currentDate = new Date().toJSON().slice(0, 10);
+            // check if user already logged in today
+            if (lastLogin == currentDate) {
+                // check if user has remaining actions for today and redirect accordingly
+                const remainingActions = +localStorage.getItem("remainingActions");
+                if (remainingActions == 0) {
+                    alert("Action limit reached for today");
+                    window.location.href = "../html/limit.html";
+                } else {
+                    window.location.href = "../html/homepage.html";
+                }
+            // if user havn't loggeg in today
+            } else {
+                // reset his actions limit and update last logged in date
+                localStorage.setItem("remainingActions", +limit);
+                localStorage.setItem("lastLogin", currentDate);
+                window.location.href = "../html/homepage.html";
+            }
+        // if user first time log in
+        } else {
+            // update his actions limit and last logged in date
+            const currentDate = new Date().toJSON().slice(0, 10);
+            localStorage.setItem("lastLogin", currentDate);
+            localStorage.setItem("remainingActions", +limit);
+            window.location.href = "../html/homepage.html";
+        }
     } else {
         // else show alert
         alert(await response.json());

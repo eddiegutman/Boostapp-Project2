@@ -63,6 +63,7 @@ const edit = async () => {
     const response = await fetch(`http:/localhost:8000/departments/${id}`, fetchParams);
     const status = await response.json();
     alert(status);
+    consumeAction();
     window.location.href = "../html/departments.html";
 }
 

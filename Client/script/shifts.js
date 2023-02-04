@@ -1,5 +1,7 @@
 // shifts page loading function
 const load = async () => {
+    checkAction();
+
     // get the main table element
     const table = document.getElementById("tableContent");
 
