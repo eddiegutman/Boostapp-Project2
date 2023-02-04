@@ -13,18 +13,25 @@ const load = async () => {
     };
 
     // request all departments and save the response
-    const response = await fetch("http:/localhost:8000/departments", fetchParams);
-    const data = await response.json();
+    const responseDep = await fetch("http:/localhost:8000/departments", fetchParams);
+    const dataDep = await responseDep.json();
 
     // request departments' sizes and save the response
-    const responseSize = await fetch("http:/localhost:8000/departments/size/all", fetchParams);
-    const dataSize = await responseSize.json();
+    const responseDepSize = await fetch("http:/localhost:8000/departments/size/all", fetchParams);
+    const dataDepSize = await responseDepSize.json();
+
+    // request all employees and save the response
+    const responseEmp = await fetch("http:/localhost:8000/employees", fetchParams);
+    const dataEmp = await responseEmp.json();
+
+    // listing number
+    let num = 1;
 
     // for each department create a row in the table
-    for (let department of data) {
+    for (let department of dataDep) {
         // elements creation
         const tr = document.createElement("tr");
-        const tdID = document.createElement("td");
+        const tdNum = document.createElement("td");
         const tdName = document.createElement("td");
         const tdManager = document.createElement("td");
         const tdOptions = document.createElement("td");
@@ -60,25 +67,31 @@ const load = async () => {
         });
 
         // disable the delete button if the department has employees
-        const foundDepartment = dataSize.find(obj => obj.departmentID == department._id);
+        const foundDepartment = dataDepSize.find(obj => obj.departmentID == department._id);
         const foundDepartmentSize = foundDepartment.size;
         if (foundDepartmentSize != 0) {
             buttonDelete.disabled = true;
         }
-        
+
         // add the buttons to spans
         spanEdit.append(buttonEdit);
         spanDelete.append(buttonDelete);
 
+        // find manager name
+        const manager = dataEmp.find(emp => emp._id == department.manager);
+
         // add data to the elements
-        tdID.textContent = department._id;
+        tdNum.textContent = num;
         tdName.textContent = department.name;
-        tdManager.textContent = department.manager;
+        tdManager.textContent = `${manager.firstName} ${manager.lastName}`;
         tdOptions.append(spanEdit, spanDelete);
 
         // add elements to the table
-        tr.append(tdID, tdName, tdManager, tdOptions);
+        tr.append(tdNum, tdName, tdManager, tdOptions);
         table.append(tr);
+
+        // increment listing num
+        num++;
     }
 }
 
@@ -89,7 +102,7 @@ buttonAdd.addEventListener("click", () => {
 });
 
 // add the load and nav bar functions to the body element as an onload event
-document.body.onload = function() {
+document.body.onload = function () {
     isRegistered();
     navBar();
 };

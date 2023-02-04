@@ -24,8 +24,15 @@ const load = async () => {
     const responseEmp = await fetch("http:/localhost:8000/employees/shifts/all", fetchParams);
     const dataEmp = await responseEmp.json();
 
+    // request all departments and save the response
+    const responseDep = await fetch("http:/localhost:8000/departments", fetchParams);
+    const dataDep = await responseDep.json();
+
     // filter the data according to the search result
     const data = dataEmp.filter(obj => dataSearch.findIndex(emp => emp._id == obj.employee._id) != -1 );
+
+    // listing num
+    let num = 1;
 
     // for each employee create a row in the table
     for (let obj of data) {
@@ -34,11 +41,11 @@ const load = async () => {
 
         // elements creation
         const tr = document.createElement("tr");
-        const tdID = document.createElement("td");
+        const tdNum = document.createElement("td");
         const tdFirstName = document.createElement("td");
         const tdLastName = document.createElement("td");
         const tdStartWorkYear = document.createElement("td");
-        const tdDepartmentID = document.createElement("td");
+        const tdDepartment = document.createElement("td");
         const tdShifts = document.createElement("td");
         const tdOptions = document.createElement("td");
         const spanList = document.createElement("span");
@@ -97,18 +104,24 @@ const load = async () => {
         spanDelete.append(buttonDelete);
         spanAddShift.append(buttonAddShift);
 
+        // find department name
+        const department = dataDep.find(dep => dep._id == employee.departmentID);
+
         // add data to the elements
-        tdID.textContent = employee._id;
+        tdNum.textContent = num;
         tdFirstName.textContent = employee.firstName;
         tdLastName.textContent = employee.lastName;
         tdStartWorkYear.textContent = employee.startWorkYear;
-        tdDepartmentID.textContent = employee.departmentID;
+        tdDepartment.textContent = department.name;
         tdShifts.append(spanList);
         tdOptions.append(spanEdit, spanDelete, spanAddShift);
 
         // add elements to the table
-        tr.append(tdID, tdFirstName, tdLastName, tdStartWorkYear, tdDepartmentID, tdShifts, tdOptions);
+        tr.append(tdNum, tdFirstName, tdLastName, tdStartWorkYear, tdDepartment, tdShifts, tdOptions);
         table.append(tr);
+
+        // increment listing num
+        num++;
     }
 }
 

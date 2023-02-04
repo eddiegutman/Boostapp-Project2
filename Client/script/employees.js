@@ -13,21 +13,28 @@ const load = async () => {
     };
 
     // request all employees with their shifts and save the response
-    const response = await fetch("http:/localhost:8000/employees/shifts/all", fetchParams);
-    const data = await response.json();
+    const responseEmp = await fetch("http:/localhost:8000/employees/shifts/all", fetchParams);
+    const dataEmp = await responseEmp.json();
+
+    // request all departments and save the response
+    const responseDep = await fetch("http:/localhost:8000/departments", fetchParams);
+    const dataDep = await responseDep.json();
+
+    // listing num
+    let num = 1;
 
     // for each employee create a row in the table
-    for (let obj of data) {
+    for (let obj of dataEmp) {
         const {employee} = obj;
         const {shifts} = obj;
 
         // elements creation
         const tr = document.createElement("tr");
-        const tdID = document.createElement("td");
+        const tdNum = document.createElement("td");
         const tdFirstName = document.createElement("td");
         const tdLastName = document.createElement("td");
         const tdStartWorkYear = document.createElement("td");
-        const tdDepartmentID = document.createElement("td");
+        const tdDepartment = document.createElement("td");
         const tdShifts = document.createElement("td");
         const tdOptions = document.createElement("td");
         const spanList = document.createElement("span");
@@ -86,18 +93,24 @@ const load = async () => {
         spanDelete.append(buttonDelete);
         spanAddShift.append(buttonAddShift);
 
+        // find department name
+        const department = dataDep.find(dep => dep._id == employee.departmentID);
+
         // add data to the elements
-        tdID.textContent = employee._id;
+        tdNum.textContent = num;
         tdFirstName.textContent = employee.firstName;
         tdLastName.textContent = employee.lastName;
         tdStartWorkYear.textContent = employee.startWorkYear;
-        tdDepartmentID.textContent = employee.departmentID;
+        tdDepartment.textContent = department.name;
         tdShifts.append(spanList);
         tdOptions.append(spanEdit, spanDelete, spanAddShift);
 
         // add elements to the table
-        tr.append(tdID, tdFirstName, tdLastName, tdStartWorkYear, tdDepartmentID, tdShifts, tdOptions);
+        tr.append(tdNum, tdFirstName, tdLastName, tdStartWorkYear, tdDepartment, tdShifts, tdOptions);
         table.append(tr);
+
+        // increment listing num
+        num++;
     }
 }
 

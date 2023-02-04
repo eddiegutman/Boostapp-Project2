@@ -16,6 +16,9 @@ const load = async () => {
     const response = await fetch("http:/localhost:8000/shifts/employees/all", fetchParams);
     const data = await response.json();
 
+    // listing num
+    let num = 1;
+
     // for each shift create a row in the table
     for (let obj of data) {
         const {shift} = obj;
@@ -23,7 +26,7 @@ const load = async () => {
 
         // elements creation
         const tr = document.createElement("tr");
-        const tdID = document.createElement("td");
+        const tdNum = document.createElement("td");
         const tdDate = document.createElement("td");
         const tdTime = document.createElement("td");
         const tdEmployees = document.createElement("td");
@@ -46,14 +49,17 @@ const load = async () => {
         spanList.append(list);
 
         // add data to the elements
-        tdID.textContent = shift._id;
+        tdNum.textContent = num;
         tdDate.textContent = shift.date;
         tdTime.textContent = `${shift.startTime}-${shift.endTime}`;
         tdEmployees.append(spanList);
 
         // add elements to the table
-        tr.append(tdID, tdDate, tdTime, tdEmployees);
+        tr.append(tdNum, tdDate, tdTime, tdEmployees);
         table.append(tr);
+        
+       // increment listing num
+       num++;
     }
 }
 
