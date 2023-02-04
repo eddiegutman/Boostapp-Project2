@@ -1,5 +1,7 @@
 // departments page loading function
 const load = async () => {
+    checkAction();
+
     // get the main table element
     const table = document.getElementById("tableContent");
 
@@ -63,6 +65,7 @@ const load = async () => {
             const response = await fetch(`http:/localhost:8000/departments/${department._id}`, fetchParams);
             const status = await response.json();
             alert(status);
+            consumeAction();
             window.location.href = "../html/departments.html";
         });
 

@@ -21,6 +21,7 @@ const add = async () => {
     const response = await fetch(`http:/localhost:8000/shifts`, fetchParams);
     const status = await response.json();
     alert(status);
+    consumeAction();
     window.location.href = "../html/shifts.html";
 }
 
