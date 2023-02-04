@@ -14,7 +14,7 @@ const login = async () => {
     // send the request and wait for a response
     const response = await fetch("http:/localhost:8000/login", fetchParams);
 
-    // if response is ok save the user's token and name and move t the homepage
+    // if response is ok save the user's token and name and move to the homepage
     if (response.status == 200) {
         const { token, name } = await response.json();
         sessionStorage.setItem("x-access-token", token);
