@@ -32,8 +32,15 @@ const load = async () => {
         // employee list creation
         const list = document.createElement("ul");
         for (let employee of employees) {
+            const link = document.createElement("a");
+            link.textContent = `${employee.firstName} ${employee.lastName}`;
+            link.href = "../html/editEmployee.html";
+            link.addEventListener("click", () => {
+                sessionStorage.setItem("employeeID", employee._id);
+            });
+
             const item = document.createElement("li");
-            item.textContent = `${employee.firstName} ${employee.lastName}`;
+            item.append(link);
             list.append(item);
         }
         spanList.append(list);
