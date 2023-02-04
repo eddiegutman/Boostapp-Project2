@@ -3,6 +3,10 @@ const load = async () => {
     // get the main table element
     const table = document.getElementById("tableContent");
 
+    // get the search text
+    const text = sessionStorage.getItem("text");
+    sessionStorage.removeItem("text");
+
     // create the request
     const fetchParams = {
         method: "GET",
@@ -12,9 +16,16 @@ const load = async () => {
         }
     };
 
+    // request epmloyee search
+    const responseSearch = await fetch(`http:/localhost:8000/employees/search/${text}`, fetchParams);
+    const dataSearch = await responseSearch.json();
+
     // request all employees with their shifts and save the response
-    const response = await fetch("http:/localhost:8000/employees/shifts/all", fetchParams);
-    const data = await response.json();
+    const responseEmp = await fetch("http:/localhost:8000/employees/shifts/all", fetchParams);
+    const dataEmp = await responseEmp.json();
+
+    // filter the data according to the search result
+    const data = dataEmp.filter(obj => dataSearch.findIndex(emp => emp._id == obj.employee._id) != -1 );
 
     // for each employee create a row in the table
     for (let obj of data) {
@@ -101,17 +112,14 @@ const load = async () => {
     }
 }
 
-// the search button function
-const search = async () => {
-    const text = document.getElementById("textSearch").value;
-    // save text input for search use
-    sessionStorage.setItem("text", text)
-    window.location.href = "../html/searchResults.html";
+// the back button function
+const back = async () => {
+    window.location.href = "../html/employees.html";
 }
 
-// assign onclick event to the search button
-const buttonSearch = document.getElementById("buttonSearch");
-buttonSearch.addEventListener("click", search);
+// assign onclick event to the back button
+const buttonBack = document.getElementById("buttonBack");
+buttonBack.addEventListener("click", back);
 
 // add the load and nav bar functions to the body element as an onload event
 document.body.onload = function() {

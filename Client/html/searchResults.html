@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees</title>
+    <title>Search Results</title>
 </head>
 <body>
     <div id="mainDiv">
         <nav id="nav"></nav>
-        <h1>Employees</h1>
-        <div>
-            <label for="textSearch">Search employee by firstname lastname or department: </label>
-            <input type="text" id="textSearch">
-            <input type="button" value="Search" id="buttonSearch">
-        </div>
+        <h1>Search Results</h1>
         <div>
             <table border="1">
                 <thead>
@@ -31,6 +26,9 @@
                 <tbody id="tableContent"></tbody>
             </table>
         </div>
+        <div>
+            <input type="button" value="Back" id="buttonBack">
+        </div>
     </div>
     <div id="noLogin">
         <h2>Login required</h2>
@@ -38,6 +36,6 @@
     </div>
 
     <script src="../script/utils.js"></script>
-    <script src="../script/employees.js"></script>
+    <script src="../script/searchResults.js"></script>
 </body>
 </html>
