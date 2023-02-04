@@ -1,3 +1,21 @@
+// fetch headers
+const headers = {
+    "Content-Type": "Application/json",
+    "x-access-token": sessionStorage.getItem("x-access-token")
+}
+
+// GET all request params
+const fetchParamsGET = {
+    method: "GET",
+    headers: headers
+};
+
+// DELETE request params
+const fetchParamsDELETE = {
+    method: "DELETE",
+    headers: headers
+};
+
 // nav bar creation function
 const navBar = () => {
     // get the main nav element and create elements

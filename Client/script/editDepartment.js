@@ -4,20 +4,11 @@ const load = async () => {
     const departmentID = sessionStorage.getItem("departmentID");
     sessionStorage.removeItem("departmentID");
 
-    // create the request
-     const fetchParams = {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        }
-    };
-
     // request the desired department and save the response
-    const responseDep = await fetch(`http:/localhost:8000/departments/${departmentID}`, fetchParams);
+    const responseDep = await fetch(`http:/localhost:8000/departments/${departmentID}`, fetchParamsGET);
     const department = await responseDep.json();
     // request all employees and save the response 
-    const responseEmp = await fetch(`http:/localhost:8000/employees`, fetchParams);
+    const responseEmp = await fetch(`http:/localhost:8000/employees`, fetchParamsGET);
     const employees = await responseEmp.json();
 
     // get page elements
@@ -46,12 +37,9 @@ const load = async () => {
 // the edit button function
 const edit = async () => {
     // create the request
-    const fetchParams = {
+    const fetchParamsPUT = {
         method: "PUT",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        },
+        headers: headers,
         body: JSON.stringify({
             name: document.getElementById("depName").value,
             manager: document.getElementById("depManager").value
@@ -60,7 +48,7 @@ const edit = async () => {
 
     // request department edit, alert response and redirect page
     const id = document.getElementById("depID").value;
-    const response = await fetch(`http:/localhost:8000/departments/${id}`, fetchParams);
+    const response = await fetch(`http:/localhost:8000/departments/${id}`, fetchParamsPUT);
     const status = await response.json();
     alert(status);
     consumeAction();

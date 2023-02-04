@@ -4,20 +4,11 @@ const load = async () => {
     const employeeID = sessionStorage.getItem("employeeID");
     sessionStorage.removeItem("employeeID");
 
-    // create the request
-     const fetchParams = {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        }
-    };
-
     // request the desired employee and save the response
-    const responseEmp = await fetch(`http:/localhost:8000/employees/${employeeID}`, fetchParams);
+    const responseEmp = await fetch(`http:/localhost:8000/employees/${employeeID}`, fetchParamsGET);
     const employee = await responseEmp.json();
     // request all departments and save the response 
-    const responseDep = await fetch(`http:/localhost:8000/departments`, fetchParams);
+    const responseDep = await fetch(`http:/localhost:8000/departments`, fetchParamsGET);
     const departments = await responseDep.json();
 
     // get page elements
@@ -53,12 +44,9 @@ const load = async () => {
 // the edit button function
 const edit = async () => {
     // create the request
-    const fetchParams = {
+    const fetchParamsPUT = {
         method: "PUT",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        },
+        headers: headers,
         body: JSON.stringify({
             firstName: document.getElementById("empFirstName").value,
             lastName: document.getElementById("empLastName").value,
@@ -69,7 +57,7 @@ const edit = async () => {
 
     // request employee edit, alert response and redirect page
     const id = document.getElementById("empID").value;
-    const response = await fetch(`http:/localhost:8000/employees/${id}`, fetchParams);
+    const response = await fetch(`http:/localhost:8000/employees/${id}`, fetchParamsPUT);
     const status = await response.json();
     alert(status);
     consumeAction();

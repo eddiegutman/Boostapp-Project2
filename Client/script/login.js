@@ -22,7 +22,7 @@ const login = async () => {
 
         // use to reset actions remaining actions for testing
         //localStorage.clear();
-        //localStorage.setItem("remainingActions", 10);
+        //localStorage.setItem("remainingActions", 20);
 
         // get the last login date
         const lastLogin = localStorage.getItem("lastLogin");

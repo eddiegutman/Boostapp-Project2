@@ -4,23 +4,14 @@ const load = async () => {
     const employeeID = sessionStorage.getItem("employeeID");
     sessionStorage.removeItem("employeeID");
 
-    // create the request
-     const fetchParams = {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        }
-    };
-
     // request the desired employee and save the response
-    const responseEmp = await fetch(`http:/localhost:8000/employees/${employeeID}`, fetchParams);
+    const responseEmp = await fetch(`http:/localhost:8000/employees/${employeeID}`, fetchParamsGET);
     const employee = await responseEmp.json();
     // request all available shifts and save the response 
-    const responseShifts = await fetch(`http:/localhost:8000/shifts`, fetchParams);
+    const responseShifts = await fetch(`http:/localhost:8000/shifts`, fetchParamsGET);
     const shifts = await responseShifts.json();
     // request all employees with their shifts
-    const responseEmployeeWithShifts = await fetch(`http:/localhost:8000/employees/shifts/all`, fetchParams);
+    const responseEmployeeWithShifts = await fetch(`http:/localhost:8000/employees/shifts/all`, fetchParamsGET);
     const employeeWithShifts = await responseEmployeeWithShifts.json();
 
     // get page elements
@@ -53,12 +44,9 @@ const load = async () => {
 // the add button function
 const add = async () => {
     // create the request
-    const fetchParams = {
+    const fetchParamsPOST = {
         method: "POST",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        },
+        headers: headers,
         body: JSON.stringify({
             employeeID: document.getElementById("empID").value,
             shiftID: document.getElementById("selectShift").value
@@ -66,7 +54,7 @@ const add = async () => {
     };
 
     // request add shift to employee, alert response and redirect page
-    const response = await fetch(`http:/localhost:8000/employeeShifts`, fetchParams);
+    const response = await fetch(`http:/localhost:8000/employeeShifts`, fetchParamsPOST);
     const status = await response.json();
     alert(status);
     consumeAction();
