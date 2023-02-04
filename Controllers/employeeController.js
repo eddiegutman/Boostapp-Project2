@@ -17,7 +17,18 @@ router.get("/", utils.verifyToken, async (request, response) => {
     }
 });
 
-// GET - get an employee  by id
+// GET - get all employees and an arrays of their shifts
+router.get("/shifts/all", utils.verifyToken, async (request, response) => {
+    try {
+        // get the employees + shifts from the database and respond
+        const data = await employeesBLL.getAllEmployeesWithShifts();
+        response.status(200).json(data);
+    } catch (error) {
+        return response.status(500).json(error);
+    }
+});
+
+// GET - get an employee by id
 router.get("/:id", utils.verifyToken, async (request, response) => {
     try {
         // get the id from the request

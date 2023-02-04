@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit employee</title>
+</head>
+<body>
+    <div id="mainDiv">
+        <nav id="nav"></nav>
+        <h1>Edit Employee</h1>
+        <div>
+            <div>
+                <label for="empID">Employee ID: </label>
+                <input type="text" id="empID">
+            </div>
+            <div>
+                <label for="empFirstName">Employee first name: </label>
+                <input type="text" id="empFirstName">
+            </div>
+            <div>
+                <label for="empLastName">Employee last name: </label>
+                <input type="text" id="empLastName">
+            </div>
+            <div>
+                <label for="empYear">Start Work year: </label>
+                <input type="number" id="empYear">
+            </div>
+            <div>
+                <label for="empDepartment">Department:</label>
+                <select id="empDepartment"></select>
+            </div>
+            <div>
+                <input type="button" value="Edit" id="buttonEdit">
+            </div>
+        </div>
+    </div>
+    <div id="noLogin">
+        <h2>Login required</h2>
+        <h3>Please <a href="./login.html">Login</a> to veiw content</h3>
+    </div>
+
+    <script src="../script/utils.js"></script>
+    <script src="../script/editEmployee.js"></script>
+    
+</body>
+</html>

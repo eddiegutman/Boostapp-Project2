@@ -3,8 +3,13 @@ const Shift = require("../Models/shiftModel");
 const EmployeeShift = require("../Models/employeeShiftModel");
 const Department = require("../Models/departmentModel");
 
-// GET - get all employees with their shifts details
+//GET - get all employees
 const getAllEmployees = async () => {
+    return Employee.find({});
+}
+
+// GET - get all employees with their shifts details
+const getAllEmployeesWithShifts = async () => {
     // create an array for objects of {employee , [shifts]}
     const data = [];
     //get all the employees and for each of them find their shifts
@@ -60,6 +65,7 @@ const deleteEmployee = async (id) => {
 // export the functions
 module.exports = {
     getAllEmployees,
+    getAllEmployeesWithShifts,
     getEmployeeByID,
     searchEmployee,
     updateEmployee,

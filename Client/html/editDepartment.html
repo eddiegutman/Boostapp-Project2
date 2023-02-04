@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit department</title>
+</head>
+<body>
+    <div id="mainDiv">
+        <nav id="nav"></nav>
+        <h1>Edit Department</h1>
+        <div>
+            <div>
+                <label for="depID">Department ID: </label>
+                <input type="text" id="depID">
+            </div>
+            <div>
+                <label for="depName">Department name: </label>
+                <input type="text" id="depName">
+            </div>
+            <div>
+                <label for="depManager">Department manager:</label>
+                <select id="depManager"></select>
+            </div>
+            <div>
+                <input type="button" value="Edit" id="buttonEdit">
+            </div>
+        </div>
+    </div>
+    <div id="noLogin">
+        <h2>Login required</h2>
+        <h3>Please <a href="./login.html">Login</a> to veiw content</h3>
+    </div>
+
+    <script src="../script/utils.js"></script>
+    <script src="../script/editDepartment.js"></script>
+    
+</body>
+</html>

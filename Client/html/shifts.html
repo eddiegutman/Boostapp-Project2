@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shifts</title>
+</head>
+<body>
+    <div id="mainDiv">
+        <nav id="nav"></nav>
+        <h1>Shifts</h1>
+        <div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Employees</th>
+                    </tr>
+                </thead>
+                <tbody id="tableContent"></tbody>
+            </table>
+        </div>
+        <span>
+            <input type="button" value="Add Shift" id="buttonAdd">
+        </span>
+    </div>
+    <div id="noLogin">
+        <h2>Login required</h2>
+        <h3>Please <a href="./login.html">Login</a> to view content</h3>
+    </div>
+
+    <script src="../script/utils.js"></script>
+    <script src="../script/shifts.js"></script>
+</body>
+</html>

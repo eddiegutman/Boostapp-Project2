@@ -3,8 +3,13 @@ const EmployeeShift = require("../Models/employeeShiftModel");
 const Employee = require("../Models/employeeModel");
 const e = require("express");
 
-// GET - get all shifts with the employees working in it
+//GET - get all shifts
 const getAllShifts = async () => {
+    return Shift.find({});
+}
+
+// GET - get all shifts with the employees working in it
+const getAllShiftsWithEmployees = async () => {
     // create an array for objects of {shift , [employees]}
     const data = [];
 
@@ -44,6 +49,7 @@ const addShift = async (obj) => {
 // export the functions
 module.exports = {
     getAllShifts,
+    getAllShiftsWithEmployees,
     getShiftByID,
     addShift
 };
