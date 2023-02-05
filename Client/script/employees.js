@@ -59,7 +59,6 @@ const load = async () => {
         // delete button creation
         buttonDelete.textContent = "Delete";
         buttonDelete.addEventListener("click", async () => {
-
             // delete request creation
             const response = await fetch(`http:/localhost:8000/employees/${employee._id}`, fetchParamsDELETE);
             const status = await response.json();
@@ -75,14 +74,17 @@ const load = async () => {
             sessionStorage.setItem("employeeID", employee._id)
             window.location.href = "../html/addShiftToEmployee.html";
         });
+
+        // disable delete button if the employee is a manager
+        const department = dataDep.find(dep => dep._id == employee.departmentID);
+        if (department.manager == employee._id) {
+            buttonDelete.disabled = true;
+        }
         
         // add the buttons to spans
         spanEdit.append(buttonEdit);
         spanDelete.append(buttonDelete);
         spanAddShift.append(buttonAddShift);
-
-        // find department name
-        const department = dataDep.find(dep => dep._id == employee.departmentID);
 
         // add data to the elements
         tdNum.textContent = num;
