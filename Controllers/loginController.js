@@ -22,7 +22,7 @@ router.post("/", async (request, response) => {
             const token = jwt.sign({ id: userID }, RSA_PRIVATE_KEY);
 
             // return the token to the user with a status
-            return response.status(200).json({ token: token, name: user.fullName, limit: user.numOfActions});
+            return response.status(200).json({ token: token, name: user.fullName, id: user._id, limit: user.numOfActions});
         }
 
         // if user not found return bad request status
