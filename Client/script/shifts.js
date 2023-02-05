@@ -5,17 +5,8 @@ const load = async () => {
     // get the main table element
     const table = document.getElementById("tableContent");
 
-    // create the request
-    const fetchParams = {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        }
-    };
-
     // request all shifts with their employees and save the response
-    const response = await fetch("http:/localhost:8000/shifts/employees/all", fetchParams);
+    const response = await fetch("http:/localhost:8000/shifts/employees/all", fetchParamsGET);
     const data = await response.json();
 
     // listing num

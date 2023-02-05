@@ -7,25 +7,16 @@ const load = async () => {
     const text = sessionStorage.getItem("text");
     sessionStorage.removeItem("text");
 
-    // create the request
-    const fetchParams = {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        }
-    };
-
     // request epmloyee search
-    const responseSearch = await fetch(`http:/localhost:8000/employees/search/${text}`, fetchParams);
+    const responseSearch = await fetch(`http:/localhost:8000/employees/search/${text}`, fetchParamsGET);
     const dataSearch = await responseSearch.json();
 
     // request all employees with their shifts and save the response
-    const responseEmp = await fetch("http:/localhost:8000/employees/shifts/all", fetchParams);
+    const responseEmp = await fetch("http:/localhost:8000/employees/shifts/all", fetchParamsGET);
     const dataEmp = await responseEmp.json();
 
     // request all departments and save the response
-    const responseDep = await fetch("http:/localhost:8000/departments", fetchParams);
+    const responseDep = await fetch("http:/localhost:8000/departments", fetchParamsGET);
     const dataDep = await responseDep.json();
 
     // filter the data according to the search result
@@ -76,16 +67,8 @@ const load = async () => {
         // delete button creation
         buttonDelete.textContent = "Delete";
         buttonDelete.addEventListener("click", async () => {
-            const fetchParams = {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "Application/json",
-                    "x-access-token": sessionStorage.getItem("x-access-token")
-                }
-            };
-
             // delete request creation
-            const response = await fetch(`http:/localhost:8000/employees/${employee._id}`, fetchParams);
+            const response = await fetch(`http:/localhost:8000/employees/${employee._id}`, fetchParamsDELETE);
             const status = await response.json();
             alert(status);
             consumeAction();

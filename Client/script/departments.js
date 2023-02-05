@@ -5,25 +5,16 @@ const load = async () => {
     // get the main table element
     const table = document.getElementById("tableContent");
 
-    // create the request
-    const fetchParams = {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        }
-    };
-
     // request all departments and save the response
-    const responseDep = await fetch("http:/localhost:8000/departments", fetchParams);
+    const responseDep = await fetch("http:/localhost:8000/departments", fetchParamsGET);
     const dataDep = await responseDep.json();
 
     // request departments' sizes and save the response
-    const responseDepSize = await fetch("http:/localhost:8000/departments/size/all", fetchParams);
+    const responseDepSize = await fetch("http:/localhost:8000/departments/size/all", fetchParamsGET);
     const dataDepSize = await responseDepSize.json();
 
     // request all employees and save the response
-    const responseEmp = await fetch("http:/localhost:8000/employees", fetchParams);
+    const responseEmp = await fetch("http:/localhost:8000/employees", fetchParamsGET);
     const dataEmp = await responseEmp.json();
 
     // listing number
@@ -53,16 +44,8 @@ const load = async () => {
         // delete button creation
         buttonDelete.textContent = "Delete";
         buttonDelete.addEventListener("click", async () => {
-            const fetchParams = {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "Application/json",
-                    "x-access-token": sessionStorage.getItem("x-access-token")
-                }
-            };
-
             // delete request creation
-            const response = await fetch(`http:/localhost:8000/departments/${department._id}`, fetchParams);
+            const response = await fetch(`http:/localhost:8000/departments/${department._id}`, fetchParamsDELETE);
             const status = await response.json();
             alert(status);
             consumeAction();

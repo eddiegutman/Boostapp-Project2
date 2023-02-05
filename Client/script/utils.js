@@ -1,3 +1,21 @@
+// fetch headers
+const headers = {
+    "Content-Type": "Application/json",
+    "x-access-token": sessionStorage.getItem("x-access-token")
+}
+
+// GET all request params
+const fetchParamsGET = {
+    method: "GET",
+    headers: headers
+};
+
+// DELETE request params
+const fetchParamsDELETE = {
+    method: "DELETE",
+    headers: headers
+};
+
 // nav bar creation function
 const navBar = () => {
     // get the main nav element and create elements
@@ -14,7 +32,8 @@ const navBar = () => {
     spanName.textContent = `Hello ${name}`;
 
     // get the user's remaining actions from the local storage and insert it to a span
-    const remainingActions = +localStorage.getItem("remainingActions");
+    const userID = sessionStorage.getItem("userID");
+    const remainingActions = +localStorage.getItem(`remainingActions_${userID}`);
     spanActions.textContent = `Remaining actions: ${remainingActions}`;
 
 
@@ -48,15 +67,17 @@ const isRegistered = () => {
     }
 }
 
-// consume 1 of the users action
+// consume 1 of the user's action
 const consumeAction = () => {
-    const remainingActions = +localStorage.getItem("remainingActions");
-    localStorage.setItem("remainingActions", remainingActions - 1);
+    const userID = sessionStorage.getItem("userID");
+    const remainingActions = +localStorage.getItem(`remainingActions_${userID}`);
+    localStorage.setItem(`remainingActions_${userID}`, remainingActions - 1);
 }
 
 // check if user has remaining actions, and if not redirect to the limit page
 const checkAction = () => {
-    const remainingActions = +localStorage.getItem("remainingActions");
+    const userID = sessionStorage.getItem("userID");
+    const remainingActions = +localStorage.getItem(`remainingActions_${userID}`);
     if (remainingActions == 0) {
         alert("Action limit reached for today");
         window.location.href = "../html/limit.html";

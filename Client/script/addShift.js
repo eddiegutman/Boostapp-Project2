@@ -4,12 +4,9 @@ const load = async () => {}
 // the add button function
 const add = async () => {
     // create the request
-    const fetchParams = {
+    const fetchParamsPOST = {
         method: "POST",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        },
+        headers: headers,
         body: JSON.stringify({
             date: document.getElementById("shiftDate").value,
             startTime: document.getElementById("shiftStart").value,
@@ -18,7 +15,7 @@ const add = async () => {
     };
 
     // request add shift, alert response and redirect page
-    const response = await fetch(`http:/localhost:8000/shifts`, fetchParams);
+    const response = await fetch(`http:/localhost:8000/shifts`, fetchParamsPOST);
     const status = await response.json();
     alert(status);
     consumeAction();

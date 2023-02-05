@@ -1,16 +1,8 @@
 // add department page loading function
 const load = async () => {
-    // create the request
-     const fetchParams = {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        }
-    };
 
     // request all employees and save response
-    const response = await fetch(`http:/localhost:8000/employees`, fetchParams);
+    const response = await fetch(`http:/localhost:8000/employees`, fetchParamsGET);
     const employees = await response.json();
 
     // get element
@@ -29,12 +21,9 @@ const load = async () => {
 // the add button function
 const add = async () => {
     // create the request
-    const fetchParams = {
+    const fetchParamsPOST = {
         method: "POST",
-        headers: {
-            "Content-Type": "Application/json",
-            "x-access-token": sessionStorage.getItem("x-access-token")
-        },
+        headers: headers,
         body: JSON.stringify({
             name: document.getElementById("depName").value,
             manager: document.getElementById("depManager").value
@@ -42,7 +31,7 @@ const add = async () => {
     };
 
     // request add department, alert response and redirect page
-    const response = await fetch(`http:/localhost:8000/departments`, fetchParams);
+    const response = await fetch(`http:/localhost:8000/departments`, fetchParamsPOST);
     const status = await response.json();
     alert(status);
     consumeAction();
